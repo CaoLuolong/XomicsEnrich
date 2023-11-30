@@ -15,20 +15,22 @@ A text file could be read by matlab(.txt, .xls, ...), and contains at least 2 co
 `Interpolate`: no; nearest; gauss
 
 ### 3. Input PPI parameters.
+`PPI database`: String full version11.5; String full version12.0; String physical version11.5; String physical version12.0;
 `PPI neighber`: a integer k (default=1), the k-th neighbour of a gene in the PPI.
-`PPI quantile`: a decimal number j between 0 and 1 (default=0.75), the threshold of connection edge in the PPI.
+`PPI quantile`: a decimal number j between 0 and 1 (default=0.5), the threshold of connection edge in the PPI.
 
 ### 4. Input partial least squares regression parameters.
+`PLS dimension`: the dimention of PLS analysis. Typically the first 5 dim could explain enough of the trait variance.
+`PLS permutation`: the number of permutation times in analysis. Typically 1000 times permutation enables the PLS analysis have a constant dim-signaficance result.
+`PLS bootstrap`: the number of bootstrap times in analysis. Typically 3000 times bootstrap enables the PLS analysis have a constant factor-weight result.
+### 5. The output path.
+`Output path`: the result of analysis will be stored at this path automately.
 
-### 5. Select the output path.
-
-### 6. Load AHBA gene expression data.
-
-### 7. Load [STRING](https://cn.string-db.org/) PPI data.
-
-### 8. Run analysis.
+### 6. Load and Analysis.
 
 ## Output results.
-A .mat file contains gene expression matrix and PET map of biomoleculars; a .txt file contains: all genes' association with trait by 14 integration methods (rows * columns).
+1) a .mat file contains gene expression matrix and PET map of biomoleculars; 
+2) a .txt file contains: all genes' association with trait by 14 integration methods (rows * columns).
 
 ## Posthoc enrichment analysis with R code.
+The enrichment analysis can refer to "./utils/pathway_enrichment.R" (run in R session), and you can do GO term, KEGG pathway, or celltype enrichent analysis and plot results of interest. 
