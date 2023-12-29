@@ -9,6 +9,8 @@ Run the "XomicsEnrich/main/XomicsEnrich.m" in the matlab, and youcan refer to a 
 A text file could be read by matlab(.txt, .xls, ...), and contains at least 2 column, the first column is a list of brain regions, the following column(s) is corresponding region's eigenvalue (trait).For example:
 ![Input](https://github.com/CaoLuolong/XomicsEnrich/blob/main/pics/input_example.png)
 
+Here we collected 5 types of brain atlas totally. All brain region IDs of different atlas were united coded and recorded in "./rawdata/brain_atlas/".
+
 ### 2. Select brain atlas and parameters.
 `Brain Atlas`: DK68_aparcaseg; 500.aparc; power264PNC; AAL1_ROI_MNI_V4; AAL3v1_1mm  
 `Sphere`: left; ap2left; whole; map2whole  
