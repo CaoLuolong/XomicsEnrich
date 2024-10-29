@@ -3,9 +3,9 @@ Integration omics summary data and enrichment analysis
 `Requirement Dependencies`: MATLAB 2018b; SPM 12;
 
 #Table of content
-## 1. Use instructions and parameter selection.
-## 2. Explanation of the output files.
-## 3. Posthoc enrichment analysis with R code.
+1. Use instructions and parameter selection.
+2. Explanation of the output files.
+3. Posthoc enrichment analysis with R code.
 
 
 ## 1. Use instructions and parameter selection:
