@@ -1,6 +1,7 @@
 # XomicsEnrich
 Integration omics summary data and enrichment analysis
-`Requirement Dependencies`: MATLAB 2018b; SPM 12;
+
+`Requirements`: MATLAB 2018b; SPM 12;
 
 ## Table of content
 1. Use instructions and parameter selection.
