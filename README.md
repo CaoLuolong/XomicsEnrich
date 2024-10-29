@@ -2,7 +2,7 @@
 Integration omics summary data and enrichment analysis
 `Requirement Dependencies`: MATLAB 2018b; SPM 12;
 
-#Table of content
+## Table of content
 1. Use instructions and parameter selection.
 2. Explanation of the output files.
 3. Posthoc enrichment analysis with R code.
@@ -38,13 +38,13 @@ Here we collected 5 types of brain atlas totally. All brain region IDs of differ
 ### 1.6 Load and Analysis.
 
 ## 2. Explanation of the output files.
-1) a "Run.log" file records he parameters and time of this analysis program.  
-2) a .mat file contains gene expression matrix and PET map of biomoleculars.  
-3) a .fig file depicts the variance proportation of trait explained by genes/PETs on PLS analysis.  
-4) a .mat file contains gene/PET weights on trait. This depict a gene could impact the trait through which biomolecules(PETs).  
-5) a .txt file contains: all genes' association with trait by totaly 10 integration methods (rows * columns).  
-6) a .txt file contains: all genes' association with trait by 6 of the 10 methods.  
-7) a .txt file contains: all genes' association with trait by addPPI method only.  
+2.1 The "Run.log" file records all parameters and time of this analysis program.  
+2.2 A .mat file contains gene expression matrix and PET map of biomoleculars.  
+2.3 The .fig file depicts the variance proportation of trait explained by genes/PETs on PLS analysis.  
+2.4 A .mat file contains gene/PET weights on trait. This depict a gene could impact the trait through which biomolecules(PETs).  
+2.5 A .txt file contains: all genes' association with trait by totaly 10 integration methods (rows * columns).  
+2.6 A .txt file contains: all genes' association with trait by 6 of the 10 methods.  
+2.7 A .txt file contains: all genes' association with trait by addPPI method only.  
 
 ## 3. Posthoc enrichment analysis with R code.
 The enrichment analysis can refer to "./utils/pathway_enrichment.R" (run in R session), and you can do GO term, KEGG pathway, or celltype enrichent analysis and plot results of interest. 
