@@ -11,7 +11,7 @@ Integration omics summary data and enrichment analysis
 
 ## 1. Use instructions and parameter selection:
 Run the "XomicsEnrich/main/XomicsEnrich.m" in the matlab, and you can refer to a GUI like the below figure:
-![Input](https://github.com/CaoLuolong/XomicsEnrich/blob/main/pics/GUI.png)
+![Input](https://github.com/CaoLuolong/XomicsEnrich/blob/main/pics/GUI_mFusion.png)
 
 ### 1.1 Select the input file.
 A text file could be read by matlab(.txt, .xls, ...), and contains at least 2 column, the first column is a list of brain regions, the following column(s) is corresponding region's eigenvalue (trait).For example:
