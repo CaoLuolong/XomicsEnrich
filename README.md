@@ -1,4 +1,4 @@
-# XomicsEnrich
+# mFusion
 Integration omics summary data and enrichment analysis
 
 `Requirements`: MATLAB 2018b; SPM 12;
