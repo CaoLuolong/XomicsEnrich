@@ -154,9 +154,18 @@ function pushbutton1_CreateFcn(~, ~, ~)
 function pushbutton1_Callback(hObject, eventdata, handles)
 [Filename, Pathname]=uigetfile('*.txt;*.csv;*.xlsx','Select Input Ground Motion'); % Raw download PEER data
 file=[Pathname,Filename];data=importdata(file);
-data = data.data;
+% æ£€æŸ¥ data æ˜¯å¦ä¸ºç»“æž„ä½“
+if isstruct(data)
+    % å¦‚æžœæ˜¯ç»“æž„ä½“ï¼Œå°è¯•æå– data å­—æ®µ
+    if isfield(data, 'data')
+        data = data.data;
+    else
+        error('The imported data is a structure, but it does not contain a "data" field.');
+    end
+end
+% data = data.data;
 nanRows = any(isnan(data), 2);
-data = data(~nanRows, :);% É¾³ýº¬ NaN µÄÐÐ
+data = data(~nanRows, :);% åˆ é™¤å« NaN çš„è¡Œ
 handles.Yraw_new= data;handles.trait= data(:,2:end);%there must not have missing value or NaN in 'file'.
 handles.input=file;
 set(handles.edit1,'String',file);
@@ -330,27 +339,27 @@ handles.PLSboot_gene_PPI=PLSboot_gene_PPI;handles.influence_mat=influence_mat;ha
 % handles.PLSboot_gene_PPI2=PLSboot_gene_PPI2;
 disp('Loading PPI Done!');
 disp('Running pathway analysis...');
-path_closeness = influence_mat.* handles.PLSboot_gp_Z;%pathwayµÄ½ôÃÜ¶È
+path_closeness = influence_mat.* handles.PLSboot_gp_Z;%pathwayçš„ç´§å¯†åº¦
 [~, ~, val_b] = find(path_closeness);
 
-score_gene = repmat(handles.PLSboot_gene.Z,1,45);%¸´ÖÆÒ»ÁÐµ½¶àÁÐ
-score_PET = repmat(handles.PLSboot_protein.Z',15408,1);%¸´ÖÆÒ»ÐÐµ½¶àÐÐ
-score_path = (abs(score_gene)+abs(score_PET) ) /sqrt(2);% ZÖµÏà¼Ó£¬½á¹û×÷Îª±ßµÄ´ò·Ö
-%     score_path = (abs(score_gene)+abs(score_PET) ) /sqrt(2).*sign(score_gene).*sign(score_PET);% ZÖµÏà¼Ó²¢´ø·ûºÅ£¬½á¹û×÷Îª±ßµÄ´ò·Ö
-%     score_path = (abs(PLSboot_gp_Z)+abs(score_gene)+abs(score_PET) ) /sqrt(3);% ZÖµÏà¼Ó,²¢¿¼ÂÇGPµÄ½ôÃÜ³Ì¶È£¬½á¹û×÷Îª±ßµÄ´ò·Ö
-%     score_path = (abs(PLSboot_gp_Z)+abs(score_gene)+abs(score_PET) ) /sqrt(3).*sign(score_gene).*sign(score_PET);% ZÖµÏà¼Ó²¢´ø·ûºÅ²¢¿¼ÂÇGPµÄ½ôÃÜ³Ì¶È£¬½á¹û×÷Îª±ßµÄ´ò·Ö
+score_gene = repmat(handles.PLSboot_gene.Z,1,45);%å¤åˆ¶ä¸€åˆ—åˆ°å¤šåˆ—
+score_PET = repmat(handles.PLSboot_protein.Z',15408,1);%å¤åˆ¶ä¸€è¡Œåˆ°å¤šè¡Œ
+score_path = (abs(score_gene)+abs(score_PET) ) /sqrt(2);% Zå€¼ç›¸åŠ ï¼Œç»“æžœä½œä¸ºè¾¹çš„æ‰“åˆ†
+%     score_path = (abs(score_gene)+abs(score_PET) ) /sqrt(2).*sign(score_gene).*sign(score_PET);% Zå€¼ç›¸åŠ å¹¶å¸¦ç¬¦å·ï¼Œç»“æžœä½œä¸ºè¾¹çš„æ‰“åˆ†
+%     score_path = (abs(PLSboot_gp_Z)+abs(score_gene)+abs(score_PET) ) /sqrt(3);% Zå€¼ç›¸åŠ ,å¹¶è€ƒè™‘GPçš„ç´§å¯†ç¨‹åº¦ï¼Œç»“æžœä½œä¸ºè¾¹çš„æ‰“åˆ†
+%     score_path = (abs(PLSboot_gp_Z)+abs(score_gene)+abs(score_PET) ) /sqrt(3).*sign(score_gene).*sign(score_PET);% Zå€¼ç›¸åŠ å¹¶å¸¦ç¬¦å·å¹¶è€ƒè™‘GPçš„ç´§å¯†ç¨‹åº¦ï¼Œç»“æžœä½œä¸ºè¾¹çš„æ‰“åˆ†
 score_path = influence_mat.* score_path;
 [row, col, val_a] = find(score_path);
 results = table(val_a, handles.PLSboot_gene.gene(row), proteins_40(col),val_b,handles.PLSboot_protein.Z(col),handles.PLSboot_gene.Z(row),'VariableNames', {'Value','Gene', 'PETs', 'GPz','PTz','GTz'});
 results.Edge= string(results.Gene) + "_" + string(results.PETs);
 writetable(results, [handles.temp_file,'_PathwayScores.csv',], 'Delimiter', ',', 'WriteVariableNames', true);
 
-% ÓÐÖØ¸´µÄedge£¬½øÐÐºÏ²¢
+% æœ‰é‡å¤çš„edgeï¼Œè¿›è¡Œåˆå¹¶
 uniqueKeys = unique(results.Edge);
 mergedT = cell(length(uniqueKeys),4);
 for idx = 1:length(uniqueKeys)        
-    idx_rep = find(results.Edge == uniqueKeys{idx});% ÕÒ³öµ±Ç°¼üµÄËùÓÐË÷Òý
-    % Èç¹ûµ±Ç°¼ü²»Ö¹³öÏÖÒ»´Î£¬Ôò¼ÆËãÆ½¾ùÖµ£»·ñÔòÖ±½ÓÈ¡Öµ
+    idx_rep = find(results.Edge == uniqueKeys{idx});% æ‰¾å‡ºå½“å‰é”®çš„æ‰€æœ‰ç´¢å¼•
+    % å¦‚æžœå½“å‰é”®ä¸æ­¢å‡ºçŽ°ä¸€æ¬¡ï¼Œåˆ™è®¡ç®—å¹³å‡å€¼ï¼›å¦åˆ™ç›´æŽ¥å–å€¼
     if length(idx_rep) > 1
         mergedT{idx,1} = mean(results.Value(idx_rep));
         mergedT{idx,2} = results.Gene{idx_rep(1)};
