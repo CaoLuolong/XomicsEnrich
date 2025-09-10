@@ -342,8 +342,11 @@ disp('Running pathway analysis...');
 path_closeness = influence_mat.* handles.PLSboot_gp_Z;%pathway的紧密度
 [~, ~, val_b] = find(path_closeness);
 
-score_gene = repmat(handles.PLSboot_gene.Z,1,45);%复制一列到多列
-score_PET = repmat(handles.PLSboot_protein.Z',15408,1);%复制一行到多行
+N_pets = size(handles.PLSboot_protein.Z',2); % 45; % 40
+N_genes = size(handles.PLSboot_gene.Z,1); % 15408
+disp(['Using ', string(N_genes), 'genes and ', string(N_pets), 'PETs!']);
+score_gene = repmat(handles.PLSboot_gene.Z,1,N_pets);%复制一列到多列
+score_PET = repmat(handles.PLSboot_protein.Z',N_genes,1);%复制一行到多行
 score_path = (abs(score_gene)+abs(score_PET) ) /sqrt(2);% Z值相加，结果作为边的打分
 %     score_path = (abs(score_gene)+abs(score_PET) ) /sqrt(2).*sign(score_gene).*sign(score_PET);% Z值相加并带符号，结果作为边的打分
 %     score_path = (abs(PLSboot_gp_Z)+abs(score_gene)+abs(score_PET) ) /sqrt(3);% Z值相加,并考虑GP的紧密程度，结果作为边的打分
