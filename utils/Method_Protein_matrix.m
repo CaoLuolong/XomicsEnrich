@@ -24,9 +24,10 @@ function Xmatrix = Method_Protein_matrix(atlas_img,brain_sphere,out_path)
     for id = 1:size(ROI,1)
         location{id,1} = find(v_aal_img == ROI{id,1});
     end
-%%     file_name = dir('F:\work_dir\PET\JuSpace_PETatlas\*.nii');
+%%    file_name = dir('F:\work_dir\PET\JuSpace_PETatlas\*.nii');
 %     file_name = dir('D:\work_dir\AHBAenrich\rawdata\PET_Resliced\*.nii');
-    file_name = dir([out_path,'../../rawdata/PET_Resliced_dup/*.nii']);
+    file_name = dir([out_path,'../../rawdata/PET_Resliced_dup/*.nii']);  # 40 PETs
+%     file_name = dir([out_path,'../../rawdata/PET_Resliced1105_dup/*.nii']);  % 45 PETs
     result = [];
     colname = [];
     for id_PET = 1:size(file_name,1)
@@ -53,4 +54,5 @@ function Xmatrix = Method_Protein_matrix(atlas_img,brain_sphere,out_path)
 %     temp_name = [out_path,datestr(datetime('now'),'yyyy_mm_dd_HH_MM'),'_PET_receptor_of_',num2str(size(ROI,1)),'_ROIs.mat'];
 %     save(temp_name,'Xmatrix')
 %     writetable(out_result, [temp_name, '.csv'], 'WriteVariableNames',false);
+
 end
